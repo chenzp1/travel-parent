@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.TravelMapper" >
+  <resultMap id="listMap" type="com.travel.pojo.ex.TravelEx" extends="BaseResultMap">
+    <association property="files" select="selectFiles" column="id"/>
+  </resultMap>
+  <select id="selectFiles" resultType="com.travel.pojo.File">
+    select id,path from file where relation_id = #{id}
+  </select>
+  <select id="list" resultMap="listMap">
+    select * from travel
+  </select>
+
+  <select id="detail" resultMap="BaseResultMap">
+     select * from travel where id=#{id}
+  </select>
+</mapper>

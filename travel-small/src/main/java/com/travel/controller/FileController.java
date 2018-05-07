@@ -39,7 +39,6 @@ public class FileController {
         File file1 = new File();
         file1.setPath(strings[0]+"/"+strings[1]);
         fileService.create(file1);
-        System.out.println(Arrays.toString(strings));
-        return strings;
+        return file1;
     }
 }
