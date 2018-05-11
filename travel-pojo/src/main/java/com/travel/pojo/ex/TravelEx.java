@@ -2,6 +2,7 @@ package com.travel.pojo.ex;
 
 import com.travel.pojo.Comment;
 import com.travel.pojo.File;
+import com.travel.pojo.Score;
 import com.travel.pojo.Travel;
 
 import java.util.List;
@@ -18,6 +19,16 @@ public class TravelEx extends Travel {
     private List<File> files;
 
     private List<CommentEx> commentExes;
+
+    private List<Score> scores;
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+    }
 
     public List<CommentEx> getCommentExes() {
         return commentExes;

@@ -1,5 +1,7 @@
 package com.travel.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Travel {
@@ -9,6 +11,7 @@ public class Travel {
 
     private String content;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
     private String createId;

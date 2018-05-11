@@ -6,8 +6,11 @@ import com.github.pagehelper.PageInfo;
 import com.travel.common.StringUtil;
 import com.travel.dao.CommentMapper;
 import com.travel.dao.FileMapper;
+import com.travel.dao.ScoreMapper;
 import com.travel.dao.TravelMapper;
 import com.travel.pojo.File;
+import com.travel.pojo.Score;
+import com.travel.pojo.ScoreExample;
 import com.travel.pojo.ex.CommentEx;
 import com.travel.pojo.ex.TravelEx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ public class TravelService {
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private ScoreMapper scoreMapper;
+
     public TravelEx create(TravelEx travelEx){
         String  travelId = StringUtil.getUuid();
         travelEx.setId(travelId);
@@ -66,6 +72,10 @@ public class TravelService {
         TravelEx travelEx = travelMapper.detail(id);
         List<CommentEx> commentExes = commentMapper.queryByRelationId(id);
         travelEx.setCommentExes(commentExes);
+        ScoreExample scoreExample = new ScoreExample();
+        scoreExample.createCriteria().andRelationIdEqualTo(id);
+        List<Score> scores = scoreMapper.selectByExample(scoreExample);
+        travelEx.setScores(scores);
         return travelEx;
     }
 }

@@ -11,7 +11,7 @@
     select * from travel
   </select>
 
-  <select id="detail" resultMap="BaseResultMap">
+  <select id="detail" resultMap="listMap">
      select * from travel where id=#{id}
   </select>
 </mapper>
