@@ -8,7 +8,7 @@
     select id,path from file where relation_id = #{id}
   </select>
   <select id="list" resultMap="listMap">
-    select * from travel
+    select * from travel order by create_time desc
   </select>
 
   <select id="detail" resultMap="listMap">

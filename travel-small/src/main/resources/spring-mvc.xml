@@ -27,7 +27,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--定时器扫描-->
-    <task:annotation-driven/>
+
 
 </beans>
