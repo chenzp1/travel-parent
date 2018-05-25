@@ -6,6 +6,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, pid, pinyin
+    id, name, pid, pinyin, level
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.pojo.CityExample" >
     select
@@ -101,9 +102,9 @@
   </delete>
   <insert id="insert" parameterType="com.travel.pojo.City" >
     insert into city (id, name, pid, 
-      pinyin)
+      pinyin, level)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
-      #{pinyin,jdbcType=VARCHAR})
+      #{pinyin,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.travel.pojo.City" >
     insert into city
@@ -120,6 +121,9 @@
       <if test="pinyin != null" >
         pinyin,
       </if>
+      <if test="level != null" >
+        level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -133,6 +137,9 @@
       </if>
       <if test="pinyin != null" >
         #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -157,6 +164,9 @@
       <if test="record.pinyin != null" >
         pinyin = #{record.pinyin,jdbcType=VARCHAR},
       </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -167,7 +177,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       pid = #{record.pid,jdbcType=INTEGER},
-      pinyin = #{record.pinyin,jdbcType=VARCHAR}
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -184,6 +195,9 @@
       <if test="pinyin != null" >
         pinyin = #{pinyin,jdbcType=VARCHAR},
       </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -191,7 +205,8 @@
     update city
     set name = #{name,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
-      pinyin = #{pinyin,jdbcType=VARCHAR}
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -18,6 +18,10 @@ public class Travel {
 
     private String createName;
 
+    private String province;
+
+    private String city;
+
     public String getId() {
         return id;
     }
@@ -64,5 +68,21 @@ public class Travel {
 
     public void setCreateName(String createName) {
         this.createName = createName == null ? null : createName.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
     }
 }

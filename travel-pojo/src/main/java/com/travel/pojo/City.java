@@ -9,6 +9,8 @@ public class City {
 
     private String pinyin;
 
+    private Integer level;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class City {
 
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin == null ? null : pinyin.trim();
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

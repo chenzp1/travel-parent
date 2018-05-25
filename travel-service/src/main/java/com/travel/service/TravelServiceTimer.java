@@ -16,12 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * @author chenzp
@@ -37,27 +34,33 @@ public class TravelServiceTimer {
     @Autowired
     private CityMapper cityMapper;
 
-    @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
-    public void getTravelInfo() throws Exception {
+    @Scheduled(cron="0 0/50 *  * * ? ")   //每小时执行一次
+    public void getTravelInfo(){
+        CityExample cityExample = new CityExample();
+        cityExample.createCriteria().andLevelNotEqualTo(1);
         List<City> cities = cityMapper.selectByExample(new CityExample());
         cities.forEach(city -> {
-
+            try {
+                String b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl=sichuan&pn=1&rn=18", "");
+                JSONObject jsonObject = JSONObject.parseObject(b);
+                JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("scene_list");
+                for(int i = 0; i < jsonArray.size();i++){
+                    JSONObject record = jsonArray.getJSONObject(i);
+                    String travelName = record.getString("ambiguity_sname");  //地名
+                    String desc = record.getJSONObject("ext").getString("more_desc");
+                    Travel travel = new Travel();
+                    travel.setId(StringUtil.getUuid());
+                    travel.setContent(desc);
+                    travel.setName(travelName);
+                    travel.setCreateTime(new Date());
+                    travel.setCity(city.getName());
+                    travel.setProvince(record.getString("province"));
+                    travelMapper.insertSelective(travel);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
-        String b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl=sichuan&pn=1&rn=18", "");
-        JSONObject jsonObject = JSONObject.parseObject(b);
-        JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("scene_list");
-        for(int i = 0; i < jsonArray.size();i++){
-            JSONObject record = jsonArray.getJSONObject(i);
-            String travelName = record.getString("ambiguity_sname");  //地名
-            String province = record.getString("province");  //地名
-            String desc = record.getJSONObject("ext").getString("more_desc");
-            Travel travel = new Travel();
-            travel.setId(StringUtil.getUuid());
-            travel.setContent(desc);
-            travel.setName(travelName);
-            travel.setCreateTime(new Date());
-            travelMapper.insertSelective(travel);
-        }
     }
 
 
@@ -70,7 +73,6 @@ public class TravelServiceTimer {
             String pinyin = "";
             try {
                 pinyin = PinyinHelper.toHanYuPinyinString(n.getName(), new HanyuPinyinOutputFormat(), "", true);
-
             } catch (BadHanyuPinyinOutputFormatCombination badHanyuPinyinOutputFormatCombination) {
                 badHanyuPinyinOutputFormatCombination.printStackTrace();
             }
@@ -98,8 +100,18 @@ public class TravelServiceTimer {
 
 
     public static void main(String[] args)throws Exception {
-        HanyuPinyinOutputFormat hanyuPinyinOutputFormat = new HanyuPinyinOutputFormat();
-        System.out.println();
+        String s = "ABCDEFG";
+        List<String> list = Arrays.asList(s.split(""));
+        Scanner sc = new Scanner( System.in );
+        System.out.println("请输入开始位置:");
+        int begin = Integer.parseInt(sc.nextLine());
+        System.out.println("请输入结束位置:");
+        int end = Integer.parseInt(sc.nextLine());
+        String target = "";
+        for(int i = begin; i < end+1;i++){
+            target+= list.get(i);
+        }
+        System.out.println(target);
     }
 
 }
