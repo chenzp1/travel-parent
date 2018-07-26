@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd"><tiles-definitions>
+
+    <!-- 定义一个基础模板页 -->
+    <definition name="template_base" template="/WEB-INF/views/template.jsp"></definition>
+
+    <!-- 不继承直接引用也行 -->
+    <definition name="*/*" extends="template_base">
+        <put-attribute name="header" value="/WEB-INF/views/top.jsp" />
+        <!--这里{1}/{2}是通配符的意思，{1}代表definition name="*/*"中的第一个*，{2}代表第二个*-->
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+    </definition>
+    <definition name="*" extends="template_base">
+        <put-attribute name="header" value="/WEB-INF/views/top.jsp" />
+        <!--这里{1}/{2}是通配符的意思，{1}代表definition name="*/*"中的第一个*，{2}代表第二个*-->
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+    </definition>
+</tiles-definitions>

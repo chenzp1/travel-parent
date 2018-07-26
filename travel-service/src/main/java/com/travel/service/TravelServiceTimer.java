@@ -34,37 +34,43 @@ public class TravelServiceTimer {
     @Autowired
     private CityMapper cityMapper;
 
-    @Scheduled(cron="0 0/50 *  * * ? ")   //每小时执行一次
+    @Scheduled(cron="0 0/5 *  * * ? ")   //每小时执行一次
     public void getTravelInfo(){
-        CityExample cityExample = new CityExample();
-        cityExample.createCriteria().andLevelNotEqualTo(1);
-        List<City> cities = cityMapper.selectByExample(new CityExample());
+        List<City> cities = cityMapper.queryTravelCity();
         cities.forEach(city -> {
-            try {
-                String b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl=sichuan&pn=1&rn=18", "");
-                JSONObject jsonObject = JSONObject.parseObject(b);
-                JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("scene_list");
-                for(int i = 0; i < jsonArray.size();i++){
-                    JSONObject record = jsonArray.getJSONObject(i);
-                    String travelName = record.getString("ambiguity_sname");  //地名
-                    String desc = record.getJSONObject("ext").getString("more_desc");
-                    Travel travel = new Travel();
-                    travel.setId(StringUtil.getUuid());
-                    travel.setContent(desc);
-                    travel.setName(travelName);
-                    travel.setCreateTime(new Date());
-                    travel.setCity(city.getName());
-                    travel.setProvince(record.getString("province"));
-                    travelMapper.insertSelective(travel);
+                for (int j = 0; j < 1000; j++) {
+                    String b = null;
+                    try {
+                        b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl="+city.getPinyin()+"&pn="+j+"&rn=18", "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    JSONObject jsonObject = JSONObject.parseObject(b);
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = jsonObject.getJSONObject("data").getJSONArray("scene_list");
+                    } catch (Exception e) {
+                      break;
+                    }
+                    for(int i = 0; i < jsonArray.size();i++){
+                        JSONObject record = jsonArray.getJSONObject(i);
+                        String travelName = record.getString("ambiguity_sname");  //地名
+                        String desc = record.getJSONObject("ext").getString("more_desc");
+                        Travel travel = new Travel();
+                        travel.setId(StringUtil.getUuid());
+                        travel.setContent(desc);
+                        travel.setName(travelName);
+                        travel.setCreateTime(new Date());
+                        travel.setCity(city.getName());
+                        travel.setProvince(record.getString("province"));
+                        travelMapper.insertSelective(travel);
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         });
     }
 
 
-    @Scheduled(cron="0 0/5 *  * * ? ")   //每5分钟执行一次
+    @Scheduled(cron="0 0/1 *  * * ? ")   //每5分钟执行一次
     public void translatePY(){
         CityExample cityExample = new CityExample();
         cityExample.createCriteria().andPinyinIsNull();
@@ -85,7 +91,7 @@ public class TravelServiceTimer {
 
 
     public static String unicodeToString(String str) {
-
+        java.util.Arrays.sort(new int[]{2,6,8,7});
         Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
         Matcher matcher = pattern.matcher(str);
         char ch;
@@ -96,22 +102,19 @@ public class TravelServiceTimer {
         return str;
     }
 
+    public static void main(String[] args) {
+
+            for (int i = 0; i < 10; i++) {
+                System.out.println(1111);
+                try {
+                int j = 1/0;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                long s = 13128802535l;
+                System.out.println(s%50);
+            }
 
 
-
-    public static void main(String[] args)throws Exception {
-        String s = "ABCDEFG";
-        List<String> list = Arrays.asList(s.split(""));
-        Scanner sc = new Scanner( System.in );
-        System.out.println("请输入开始位置:");
-        int begin = Integer.parseInt(sc.nextLine());
-        System.out.println("请输入结束位置:");
-        int end = Integer.parseInt(sc.nextLine());
-        String target = "";
-        for(int i = begin; i < end+1;i++){
-            target+= list.get(i);
-        }
-        System.out.println(target);
     }
-
 }

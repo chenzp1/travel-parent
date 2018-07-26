@@ -1,0 +1,28 @@
+.search_div{
+    padding:20px 0;
+    text-align: center;
+}
+.search_input{
+    height: 40px;
+    width: 400px;
+    position: relative;
+    bottom: 8px;
+    font-size: 20px;
+}
+.search_btn{
+    background-color: #0084ff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.user_box{
+    float: right;
+    position: relative;
+    right: 80px;
+}
+.login_btn{
+    cursor: pointer;
+}
+.register_btn{
+    cursor: pointer;
+    margin-left: 20px;
+}

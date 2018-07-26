@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.travel.dao.CityMapper" >
-  <resultMap id="queryTravelCityMap" type="com.travel.pojo.ex.CityEx" extends="BaseResultMap">
-  </resultMap>
-  <select id="queryTravelCity" resultMap="queryTravelCityMap">
-    
+  <select id="queryTravelCity" resultMap="BaseResultMap">
+    select c.* from city c left JOIN travel t on c.`name`= t.city  where t.city is null and c.`level` = 1
   </select>
 </mapper>
