@@ -8,7 +8,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Tiles</title>
+    <title>travel</title>
+    <link href="${css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="${contextpath}js/jquery-3.1.0.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -17,16 +19,9 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="panel panel-default text-center">
-        <div class="panel-body">
-            <tiles:insertAttribute name="header" />
-        </div>
-    </div>
-    <div class="panel panel-default text-center">
-        <tiles:insertAttribute name="body" />
-    </div>
-    <tiles:insertAttribute name="footer" />
-</div>
+<tiles:insertAttribute name="header" />
+<tiles:insertAttribute name="body" />
+<tiles:insertAttribute name="footer" />
 </body>
 </html>
+<script type="text/javascript" src="${js}"></script>
