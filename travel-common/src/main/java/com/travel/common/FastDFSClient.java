@@ -27,6 +27,7 @@ public class FastDFSClient {
     public static void main(String[] args) throws Exception{
         File file = new File("C:\\Users\\Administrator\\Desktop\\ac345982b2b7d0a26c4d3b60cdef76094a369a42.jpg");
     }
+
     static {
         //加载配置文件的方式
         String configFileName = "fdfs_client.conf";

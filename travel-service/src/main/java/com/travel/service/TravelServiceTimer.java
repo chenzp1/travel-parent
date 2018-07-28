@@ -12,6 +12,8 @@ import com.travel.pojo.Travel;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -34,14 +36,19 @@ public class TravelServiceTimer {
     @Autowired
     private CityMapper cityMapper;
 
+    Logger logger = LoggerFactory.getLogger(TravelServiceTimer.class);
+
     @Scheduled(cron="0 0/5 *  * * ? ")   //每小时执行一次
     public void getTravelInfo(){
         List<City> cities = cityMapper.queryTravelCity();
         cities.forEach(city -> {
-                for (int j = 0; j < 1000; j++) {
+                for (int j = 0; j < 10; j++) {
                     String b = null;
                     try {
-                        b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl="+city.getPinyin()+"&pn="+j+"&rn=18", "");
+                        String s = city.getPinyin().replaceAll("shi","").replaceAll("sheng","").replaceAll("zizhiqu","").replaceAll("zhuangzuzizhiqu","")
+                                .replaceAll("huizuzizhiqu","").replaceAll("weiwuerzizhiqu","").replaceAll("tebiexingzhengqu","");
+                        b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl="+s+"&pn="+j+"&rn=18", "");
+                        logger.info(b);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -61,8 +68,7 @@ public class TravelServiceTimer {
                         travel.setContent(desc);
                         travel.setName(travelName);
                         travel.setCreateTime(new Date());
-                        travel.setCity(city.getName());
-                        travel.setProvince(record.getString("province"));
+                        travel.setProvince(city.getName());
                         travelMapper.insertSelective(travel);
                     }
                 }
