@@ -45,8 +45,8 @@ public class TravelServiceTimer {
                 for (int j = 0; j < 10; j++) {
                     String b = null;
                     try {
-                        String s = city.getPinyin().replaceAll("shi","").replaceAll("sheng","").replaceAll("zizhiqu","").replaceAll("zhuangzuzizhiqu","")
-                                .replaceAll("huizuzizhiqu","").replaceAll("weiwuerzizhiqu","").replaceAll("tebiexingzhengqu","");
+                        String s = city.getPinyin().replaceAll("shi","").replaceAll("sheng","").replaceAll("zhuangzuzizhiqu","")
+                                .replaceAll("huizuzizhiqu","").replaceAll("weiwuerzizhiqu","").replaceAll("tebiexingzhengqu","").replaceAll("zizhiqu","");
                         b = new HttpTools().getString("https://lvyou.baidu.com/destination/ajax/jingdian?format=ajax&cid=0&playid=0&seasonid=5&surl="+s+"&pn="+j+"&rn=18", "");
                         logger.info(b);
                     } catch (Exception e) {
