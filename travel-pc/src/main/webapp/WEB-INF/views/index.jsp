@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <div>
+    <div class="banager_box">
+        <div class="wrapper">
+            <ul class="banager">
+                <li>首页</li>
+                <li>日记</li>
+                <li>景点</li>
+                <li>目的地</li>
+                <li>同城游</li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div style="height: 20px"></div>
+    <div class=""></div>
     <ul class="ul_box" id="ul_box">
         <li>
             <img src="http://img0.imgtn.bdimg.com/it/u=3119678033,2037402323&fm=200&gp=0.jpg"  width="800" height="300"/>
@@ -21,14 +35,16 @@
             <span id="span_3"></span>
         </div>
 
-        <div id="notice" class="notice">
-            <div id="notice_title">网站公告</div>
-            <span>公告11111111111</span>
-            <span>公22222222告2</span>
-            <span>公3333333333告3</span>
-            <span>公44444444告4</span>
-        </div>
+
     </ul>
+
+    <div id="notice" class="notice">
+        <div id="notice_title">网站公告</div>
+        <div>公告11111111111</div>
+        <div>公22222222告2</div>
+        <div>公3333333333告3</div>
+        <div>公44444444告4</div>
+    </div>
 
 
 
