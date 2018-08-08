@@ -14,7 +14,9 @@
         </div>
     </div>
     <div style="height: 20px"></div>
-    <div class=""></div>
+    <div class="left">
+        左边
+    </div>
     <ul class="ul_box" id="ul_box">
         <li>
             <img src="http://img0.imgtn.bdimg.com/it/u=3119678033,2037402323&fm=200&gp=0.jpg"  width="800" height="300"/>

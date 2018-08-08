@@ -22,8 +22,18 @@
     border-right: 1px solid #369602;
     padding: 0px 18px;
 }
+.left{
+    background-color: #2dbb55;
+    width: 293px;
+    height: 410px;
+    display: inline-block;
+    position: relative;
+    bottom: 409px;
+    margin: 5%;
+    padding: 10px;
+}
 .ul_box{
-    margin-left: 5%;
+    margin-left: -5%;
     display: inline-block;
     width: 800px;
     height: 440px;
