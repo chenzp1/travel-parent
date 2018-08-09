@@ -76,7 +76,7 @@ public class TravelServiceTimer {
     }
 
 
-    @Scheduled(cron="0 0/1 *  * * ? ")   //每5分钟执行一次
+    //@Scheduled(cron="0 0/1 *  * * ? ")   //每5分钟执行一次
     public void translatePY(){
         CityExample cityExample = new CityExample();
         cityExample.createCriteria().andPinyinIsNull();

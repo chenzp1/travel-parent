@@ -19,9 +19,6 @@
     position: relative;
     right: 80px;
 }
-.login_btn{
-    cursor: pointer;
-}
 .register_btn{
     cursor: pointer;
     margin-left: 20px;

@@ -2,24 +2,33 @@
          pageEncoding="utf-8" %>
 <link href="/css/top.css" rel="stylesheet" type="text/css"/>
 <style>
-    .login_box{
-        width: 100%;
-        height: 100%;
-        background-color: #666;
-        z-index: 5;
-        display: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        opacity:0.9;
-        text-align: center;
-    }
     .login{
         margin-top: 20px;
         background-color: #fff;
         z-index: 6;
         opacity:1;
         width: 400px;
+        display: none;
+        position: absolute;
+        top: 191px;
+        height: 141px;
+        left: 38%;
+        padding: 20px;
+        box-shadow: #666 0px 0px 76px;
+        border-radius: 4px;
+    }
+    .register{
+        margin-top: 20px;
+        background-color: #fff;
+        z-index: 6;
+        opacity:1;
+        width: 400px;
+        display: none;
+        box-shadow: #666 0px 0px 76px;
+        border-radius: 4px;
+    }
+    .login_btn{
+        margin-left: 40px;
     }
 </style>
 <div class="search_div">
@@ -40,20 +49,31 @@
     </span>
     </span>
 </div>
-<div class="login_box">
-    <div class="login" id="login">
-        <p><span>账号:</span><input/></p>
-        <p><span>密码:</span><input type="password"/></p>
-        <p><button>登录</button></p>
-    </div>
-    <div class="login" id="register">
-        <p><span>邮件:</span><input/></p>
-        <p><span>密码:</span><input type="password"/></p>
-        <p><button>注册</button></p>
-    </div>
+<div class="login" id="login_box">
+    <p class="p_box"><span>邮箱:</span><input id="email" class="user_input"/></p>
+    <p class="p_box"><span>密码:</span><input id="password" class="user_input" type="password"/></p>
+    <p class="p_box"><button id="login" class="login_btn">登录</button><button class="login_btn">关闭</button></p>
 </div>
+
 <script>
     function showLogin() {
-        $(".login_box").show();
+        $("#login_box").show();
     }
+    $("#login").click(function () {
+        var email = $("#email").val();
+        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!myreg.test(email)){
+            alert("请输入正确的邮箱");
+            return;
+        }
+        var password = $("#password").val();
+        $.ajax({
+            url: "/user/login",
+            data: JSON.stringify({email: email,password:password}),
+            type: "POST",
+            contentType : 'application/json',
+            success: function(data) {
+            }
+        });
+    });
 </script>

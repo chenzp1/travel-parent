@@ -22,6 +22,9 @@
     border-right: 1px solid #369602;
     padding: 0px 18px;
 }
+.p_box{
+    margin-top: 20px;
+}
 .left{
     background-color: #2dbb55;
     width: 293px;
@@ -31,6 +34,9 @@
     bottom: 409px;
     margin: 5%;
     padding: 10px;
+}
+.user_input{
+    margin-left: 10px;
 }
 .ul_box{
     margin-left: -5%;
